@@ -25,8 +25,8 @@ sigma = zeros(1, size(X, 2));
 %
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
-X_means = zeros(1, length(X));
-X_stds  = zeros(1, length(X));
+X_means = zeros(1, size(X, 2));
+X_stds  = zeros(1, size(X, 2));
 
 for i = 1:size(X,2)
     X_means(i) = mean(X(:, i));
@@ -39,6 +39,15 @@ end
 for i = 1:size(X,2)
     X_norm(:, i) = (X_norm(:, i) - X_means(i)) / X_stds(i);
 end
+
+for i = 1:size(X,2)
+  mu(i)    = X_means(i);
+  sigma(i) = X_stds(i);
+ end
+
+%disp(X_means);
+%disp(X_stds);
+
 
 %{
 X1_mean = mean(X(:, 1));
