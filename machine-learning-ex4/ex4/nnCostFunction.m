@@ -62,21 +62,68 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Theta1 is 25 by 401
+% Theta2 is 10 by 26
 
+% Part 1: Feedforward the neural network and return the cost in the
+%         variable J. After implementing Part 1, you can verify that your
+%         cost function computation is correct by verifying the cost
+%         computed in ex4.m
 
+X = [ones(m, 1) X];
 
+% y_vec is m by 10
+y_vec = [];
+for i = 1:m
+    y_vec = [y_vec ; 1:num_labels == y(i)];
+end
 
+% a_1 is 5000 by 401
+a_1 = X;
 
+% z_2 is 25 by 5000
+z_2 = Theta1 * a_1';
 
+% a_2 is 26 by 5000
+a_2 = [ones(1, size(z_2, 2)) ; sigmoid(z_2)];
 
+% z_3 is 10 by 5000
+z_3 = Theta2 * a_2;
 
+% h and a_3 is 10 by 5000
+h = a_3 = sigmoid(z_3);
 
+h_vec = a_3(:);
+% [N, I] = max(h, [], 2);
 
+% p = I(:);
 
+J = (1 / m) * sum(diag((-y_vec) * log(h) -  (1 - y_vec) * log(1 - h)));
 
+punish_theta1 = power(Theta1(:,2:end), 2);
+punish_theta2 = power(Theta2(:,2:end), 2);
+size(punish_theta1)
+size(punish_theta2)
+punish = (lambda / (2 * m)) * (sum(sum(punish_theta1)) + sum(sum(punish_theta2)));
 
+J = J + punish;
+% -------------------------------------------------------------
 
-
+% Part 2: Implement the backpropagation algorithm to compute the gradients
+%         Theta1_grad and Theta2_grad. You should return the partial derivatives of
+%         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
+%         Theta2_grad, respectively. After implementing Part 2, you can check
+%         that your implementation is correct by running checkNNGradients
+%
+%         Note: The vector y passed into the function is a vector of labels
+%               containing values from 1..K. You need to map this vector into a 
+%               binary vector of 1's and 0's to be used with the neural network
+%               cost function.
+%
+%         Hint: We recommend implementing backpropagation using a for-loop
+%               over the training examples if you are implementing it for the 
+%               first time.
+%
 
 
 
