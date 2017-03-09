@@ -102,8 +102,8 @@ J = (1 / m) * sum(diag((-y_vec) * log(h) -  (1 - y_vec) * log(1 - h)));
 
 punish_theta1 = power(Theta1(:,2:end), 2);
 punish_theta2 = power(Theta2(:,2:end), 2);
-size(punish_theta1)
-size(punish_theta2)
+% size(punish_theta1)
+% size(punish_theta2)
 punish = (lambda / (2 * m)) * (sum(sum(punish_theta1)) + sum(sum(punish_theta2)));
 
 J = J + punish;
