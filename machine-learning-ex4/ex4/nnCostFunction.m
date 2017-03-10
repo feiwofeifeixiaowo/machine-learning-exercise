@@ -153,7 +153,16 @@ Theta2_grad = Theta2_grad + delta_3 * a_2' ./ m;
 %               backpropagation. That is, you can compute the gradients for
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
+Theta1_grad_zero = Theta1_grad(:,1);
+% 25 * 401
+Theta1_grad = Theta1_grad + (lambda / m) * Theta1;
+Theta1_grad(:,1) = Theta1_grad_zero;
 
+
+% 10 * 26
+Theta2_grad_zero = Theta2_grad(:,1);
+Theta2_grad = Theta2_grad + (lambda / m) * Theta2;
+Theta2_grad(:,1) = Theta2_grad_zero;
 
 % =========================================================================
 
