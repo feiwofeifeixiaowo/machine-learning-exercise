@@ -126,6 +126,17 @@ J = J + punish;
 %
 
 
+delta_3 = sum(a_3' - y_vec);
+size(delta_3) % 5000 * 10
+size(Theta2)  % 10 * 26
+size(z_2)     % 25 * 5000
+delta_2 = delta_3 * Theta2(:,2:end) * sigmoidGradient(z_2);
+
+delta_2 = delta_2(2:end);
+
+Theta1_grad = delta_2 / m;
+
+Theta2_grad = delta_3 / m;
 
 % -------------------------------------------------------------
 
