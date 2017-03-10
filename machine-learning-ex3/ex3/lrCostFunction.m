@@ -37,11 +37,14 @@ grad = zeros(size(theta));
 %
 
 
+h = sigmoid(X*theta);
+% do not regularizing theta(1)
+theta_expect_one = theta(2:end);
+J = (-1 / m) * (sum(y' * log(h) + (1 - y)' * log(1 - h))) + (lambda / (2 * m)) * sum(theta_expect_one' * theta_expect_one) ;
 
-
-
-
-
+h_err = ((h - y)' * X)' / m;
+grad_reg = h_err(2:end) + lambda / m * theta_expect_one;
+grad = [h_err(1); grad_reg];
 
 
 
