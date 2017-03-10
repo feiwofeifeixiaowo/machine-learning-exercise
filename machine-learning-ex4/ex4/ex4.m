@@ -88,7 +88,7 @@ pause;
 %  continue to implement the regularization with the cost.
 %
 
-fprintf('\nChecking Cost Function (w/ Regularization) ... \n')
+fprintf('\nChecking Cost Function (Regularization) ... \n')
 
 % Weight regularization parameter (we set this to 1 here).
 lambda = 1;

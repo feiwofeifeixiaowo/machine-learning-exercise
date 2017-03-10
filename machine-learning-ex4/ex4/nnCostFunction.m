@@ -126,24 +126,38 @@ J = J + punish;
 %
 
 
-delta_3 = sum(a_3' - y_vec);
-size(delta_3) % 5000 * 10
-size(Theta2)  % 10 * 26
-size(z_2)     % 25 * 5000
-delta_2 = delta_3 * Theta2(:,2:end) * sigmoidGradient(z_2);
+delta_3 = a_3 - y_vec';
+% size(delta_3) % 10 * 5000
+% size(Theta2)  % 10 * 26
+% size(z_2)     % 25 * 5000
 
-delta_2 = delta_2(2:end);
+% this .* operator will multi every element in Theta2 and delta_3   (one to one )
+% beacuse Theta2'  has the same size of delta_3
+delta_2 = Theta2' * delta_3 .* ...
+    sigmoidGradient([ones(1, size(z_2,2)) ; z_2]);
+% delta_2 is 25 * 5000
+delta_2 = delta_2(2:end,:);
 
-Theta1_grad = delta_2 / m;
+Theta1_grad = Theta1_grad + (delta_2 * a_1) ./ m;
 
-Theta2_grad = delta_3 / m;
+% 10 * 26
+Theta2_grad = Theta2_grad + delta_3 * a_2' ./ m;
 
+% disp(size(Theta1_grad));
+% disp(size(Theta2_grad));
 % -------------------------------------------------------------
+
+% Part 3: Implement regularization with the cost function and gradients.
+%
+%         Hint: You can implement this around the code for
+%               backpropagation. That is, you can compute the gradients for
+%               the regularization separately and then add them to Theta1_grad
+%               and Theta2_grad from Part 2.
+
 
 % =========================================================================
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
