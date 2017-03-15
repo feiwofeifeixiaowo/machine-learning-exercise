@@ -164,7 +164,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 1;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -204,6 +204,13 @@ pause;
 [lambda_vec, error_train, error_val] = ...
     validationCurve(X_poly, y, X_poly_val, yval);
 
+% ==================================================================
+% compute test error
+[theta] = trainLinearReg(X_poly, y, 3);
+theta_test = theta;
+test_error = linearRegCostFunction(X_poly_test, ytest, theta_test, 0);
+% ==================================================================
+
 close all;
 plot(lambda_vec, error_train, lambda_vec, error_val);
 legend('Train', 'Cross Validation');
@@ -216,5 +223,6 @@ for i = 1:length(lambda_vec)
             lambda_vec(i), error_train(i), error_val(i));
 end
 
+fprintf('test error for lambda=3 is: \n %f\n', test_error);
 fprintf('Program paused. Press enter to continue.\n');
 pause;
