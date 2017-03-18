@@ -36,7 +36,7 @@ for i = 1:length(param)
     sigma = param(j);
     model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
     predictions       = svmPredict(model, Xval);
-    prediction_error  = [prediction_error ; mean(double(predictions ~= yval)) i j];
+    prediction_error  = [prediction_error ; mean(double(predictions == yval)) i j];
   end
 end
 
@@ -49,10 +49,10 @@ disp("max prediction_error is: ");
 disp(p_err);
 disp("index is :");
 disp(index);
-[p_err i j] = prediction_error(index, :);
+[res] = prediction_error(index, :);
 
-C     = i;
-sigma = j;
+C     = param(res(2));
+sigma = param(res(3));
 % =========================================================================
 
 end
